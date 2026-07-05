@@ -1,0 +1,387 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #000;
+  --panel: #111;
+  --panel-border: #222;
+  --text: #fff;
+  --text-muted: rgba(255, 255, 255, 0.45);
+  --pink: #ff69b4;
+  --pink-hover: #ff85c4;
+  --pink-dim: #cc5490;
+  --success: #7dffb3;
+  --error: #ff6b8a;
+  --radius: 14px;
+  --font: "Outfit", system-ui, sans-serif;
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+  overflow-x: hidden;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tagline {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.tabs {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+.tab {
+  appearance: none;
+  border: none;
+  background: var(--pink-dim);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  border-radius: 10px 10px 0 0;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.tab:hover {
+  background: var(--pink-hover);
+}
+
+.tab.active {
+  background: var(--pink);
+}
+
+.tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
+}
+
+.tab-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+  padding: 1.5rem;
+}
+
+.webhook-form {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #222;
+}
+
+.panel.phraser-active .webhook-form {
+  display: none;
+}
+
+.phraser-result {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #222;
+}
+
+.phraser-result.hidden {
+  display: none;
+}
+
+#btn-phrase {
+  width: 100%;
+}
+
+.phraser-result .btn {
+  width: 100%;
+}
+
+#phraser-output {
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  resize: vertical;
+  color: var(--text-muted);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.85rem;
+}
+
+.field span {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  background: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.92rem;
+  transition: border-color 0.2s;
+}
+
+#phraser-input {
+  font-family: ui-monospace, "Cascadia Code", monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--pink-dim);
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.field-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.preset-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.preset-btn {
+  appearance: none;
+  border: none;
+  background: var(--pink-dim);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.preset-btn:hover {
+  background: var(--pink-hover);
+}
+
+.field.inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.field.inline input {
+  width: 5rem;
+}
+
+.status {
+  min-height: 1.5rem;
+  font-size: 0.88rem;
+  margin-bottom: 1rem;
+}
+
+.status.error {
+  color: var(--error);
+}
+
+.status.success {
+  color: var(--success);
+}
+
+.status.info {
+  color: var(--text-muted);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.panel-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 1.1rem;
+  line-height: 1.5;
+}
+
+.info-profile {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.info-pfp {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--pink);
+}
+
+.info-pfp--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.info-pfp.hidden {
+  display: none;
+}
+
+.info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.75rem;
+  align-items: baseline;
+  font-size: 0.95rem;
+}
+
+.info-row .label {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.info-row .value {
+  word-break: break-all;
+}
+
+.info-row .value.muted {
+  color: var(--text-muted);
+}
+
+.btn {
+  appearance: none;
+  border: none;
+  background: var(--pink);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1.4rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, opacity 0.2s;
+}
+
+.btn:hover {
+  background: var(--pink-hover);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.btn-row .btn {
+  flex: 1;
+  min-width: 140px;
+}
+
+@media (max-width: 520px) {
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .info-row {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+}

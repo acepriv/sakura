@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sakura</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <h1>Sakura <span class="emoji" aria-hidden="true">🌸</span></h1>
+      <p class="tagline">No data is EVER stored or sent to some random server.</p>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Webhook actions">
+      <button class="tab active" role="tab" aria-selected="true" data-tab="info">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </span>
+        Info
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="phraser">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 6 4 6"/><path d="m16 9 4 6-4 6"/><path d="M14.5 4l-5 16"/></svg>
+        </span>
+        Phraser
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="edit">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        </span>
+        Edit
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="spam">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/></svg>
+        </span>
+        Spam
+      </button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="delete">
+        <span class="tab-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+        </span>
+        Delete
+      </button>
+    </nav>
+
+    <section class="panel">
+      <div class="webhook-form">
+        <label class="field">
+          <span>Webhook URL or ID / token</span>
+          <input
+            id="webhook-input"
+            type="text"
+            placeholder="https://discord.com/api/webhooks/ID/token or ID/token"
+            spellcheck="false"
+          />
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>ID</span>
+            <input id="webhook-id" type="text" placeholder="1523422866941673633" spellcheck="false" />
+          </label>
+          <label class="field">
+            <span>Token</span>
+            <input id="webhook-token" type="text" placeholder="ORGQIPX5TWz..." spellcheck="false" />
+          </label>
+        </div>
+      </div>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+
+      <div class="tab-panel active" data-panel="info">
+        <div class="info-profile">
+          <img id="info-pfp" class="info-pfp hidden" alt="Webhook avatar" />
+          <div id="info-pfp-placeholder" class="info-pfp info-pfp--empty">?</div>
+        </div>
+        <div class="info-grid">
+          <div class="info-row"><span class="label">Name</span><span id="info-name" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">ID</span><span id="info-id" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">Token</span><span id="info-token" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">URL</span><span id="info-url" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">Channel ID</span><span id="info-channel" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">Guild ID</span><span id="info-guild" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">Type</span><span id="info-type" class="value muted">—</span></div>
+          <div class="info-row"><span class="label">Application ID</span><span id="info-app" class="value muted">—</span></div>
+        </div>
+        <div class="btn-row">
+          <button type="button" id="btn-fetch" class="btn">Fetch webhook info</button>
+          <button type="button" id="btn-copy-json" class="btn">Copy JSON</button>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="phraser">
+        <label class="field">
+          <span>Webhook JSON</span>
+          <textarea
+            id="phraser-input"
+            rows="10"
+            spellcheck="false"
+            placeholder='{"id":"...","token":"...","url":"https://discord.com/api/webhooks/..."}'
+          ></textarea>
+        </label>
+        <button type="button" id="btn-phrase" class="btn">Phrase</button>
+        <div id="phraser-result" class="phraser-result hidden">
+          <label class="field">
+            <span>Phrased webhook — paste into other tabs or copy</span>
+            <textarea id="phraser-output" rows="6" readonly spellcheck="false"></textarea>
+          </label>
+          <button type="button" id="btn-copy" class="btn">Copy webhook URL</button>
+        </div>
+      </div>
+
+      <div class="tab-panel" data-panel="edit">
+        <p class="panel-desc">Rename or rebrand the webhook.</p>
+        <label class="field">
+          <span>New name</span>
+          <input id="edit-name" type="text" placeholder="Spidey Bot" />
+        </label>
+        <label class="field">
+          <span>Avatar URL (optional)</span>
+          <input id="edit-avatar" type="url" placeholder="https://..." />
+        </label>
+        <button type="button" id="btn-edit" class="btn">Update webhook</button>
+      </div>
+
+      <div class="tab-panel" data-panel="spam">
+        <p class="panel-desc">Send messages through the webhook (runs locally, hits Discord only).</p>
+        <label class="field">
+          <span>Message</span>
+          <textarea id="spam-content" rows="4" placeholder="Your message here..."></textarea>
+        </label>
+        <div class="field-row">
+          <label class="field">
+            <span>Count</span>
+            <input id="spam-count" type="number" min="1" max="100" value="1" />
+          </label>
+          <label class="field">
+            <span>Speed (sec between sends)</span>
+            <input id="spam-delay" type="number" min="0.1" max="60" step="0.1" value="1" />
+          </label>
+        </div>
+        <div class="field">
+          <span class="field-label">Presets</span>
+          <div id="spam-presets" class="preset-grid"></div>
+        </div>
+        <button type="button" id="btn-spam" class="btn">Send message(s)</button>
+      </div>
+
+      <div class="tab-panel" data-panel="delete">
+        <p class="panel-desc">
+          Permanently delete this webhook. Use when you recovered a stealer or malware webhook
+          and want to shut down the exfil channel.
+        </p>
+        <button type="button" id="btn-delete" class="btn">Delete webhook</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
